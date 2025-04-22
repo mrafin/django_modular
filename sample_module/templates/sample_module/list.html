@@ -10,8 +10,18 @@
   <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Simple Module</h1>
-        <a href="/product/add" class="btn btn-primary">Tambah Produk</a>
+        <div>
+            {% if user.is_authenticated %}
+              <span class="me-3">Hello, <strong>{{ user.username }}</strong> ({{ user.groups.all.0.name }})</span>
+              <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Logout</a>
+            {% else %}
+              <a href="{% url 'login' %}" class="btn btn-outline-primary btn-sm">Login</a>
+            {% endif %}
+        </div>
     </div>
+    {% if user.groups.all.0.name != 'public'%}
+        <a href="/product/add" class="btn btn-primary mb-4">Tambah Produk</a>
+    {% endif %}
     <div class="table-responsive">
       <table class="table table-striped table-bordered align-middle">
         <thead class="table-dark">
@@ -20,6 +30,9 @@
             <th>Barcode</th>
             <th>Price</th>
             <th>Stock</th>
+            {% if user.groups.all.0.name != 'public'%}
+                <th>Action</th>
+            {% endif %}
           </tr>
         </thead>
         <tbody>
@@ -29,6 +42,37 @@
               <td>{{ product.barcode }}</td>
               <td>{{ product.price }}</td>
               <td>{{ product.stock }}</td>
+                {% if user.groups.all.0.name != 'public'%}
+                    <td>
+                        <a href="/product/edit/{{product.id}}" class="btn btn-success">edit</a>
+                        {% if user.groups.all.0.name == 'manager'%}
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                        <!-- Modal -->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                            
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                            
+                                    <div class="modal-body">
+                                        Are you sure to delete this data?
+                                    </div>
+                            
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <a href="{% url 'product_delete' product.id %}" class="btn btn-danger">Hapus</a>
+                                    </div>
+                            
+                                </div>
+                                </div>
+                            </div>
+  
+                        {% endif %}
+                    </td>
+                {% endif %}
             </tr>
           {% endfor %}
         </tbody>

@@ -23,7 +23,7 @@ from django.shortcuts import redirect
 
 def custom_logout(request):
     logout(request)
-    next_url = request.META.get('HTTP_REFERER', '/')
+    next_url = "/module"
     return redirect(next_url)
 
 urlpatterns = [

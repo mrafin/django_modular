@@ -11,7 +11,6 @@ class Product(models.Model):
         permissions = [
             ('view_product_public', 'Can view product as public'),
             ('add_product_user', 'Can add product as user'),
-            # dan seterusnya...
         ]
 
     def __str__(self):

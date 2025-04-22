@@ -42,6 +42,5 @@ def product_delete(request, pk):
         return render(request, 'sample_module/not_installed.html')
     
     prod = get_object_or_404(Product, pk=pk)
-    if request.method == 'POST':
-        prod.delete(); return redirect('product_list')
-    return render(request, 'sample_module/confirm_delete.html', {'object': prod})
+    prod.delete()
+    return redirect('product_list')
