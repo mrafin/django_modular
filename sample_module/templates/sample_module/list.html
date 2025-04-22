@@ -1,0 +1,13 @@
+<h1>Simple Module</h1>
+<table>
+  <tr><th>Name</th><th>Barcode</th><th>Price</th><th>Stock</th></tr>
+  {% for prduct in products %}
+    <tr>
+      <td>{{ prduct.name }}</td>
+      <td>{{ prduct.barcode }}</td>
+      <td>{{ prduct.price}}</td>
+      <td>{{ prduct.stock}}</td>
+      
+    </tr>
+  {% endfor %}
+</table>

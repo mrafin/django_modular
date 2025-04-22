@@ -1,0 +1,19 @@
+<h1>Module Management</h1>
+<table>
+  <tr><th>Name</th><th>Version</th><th>Status</th><th>Action</th></tr>
+  {% for mod in modules %}
+    <tr>
+      <td>{{ mod.name }}</td>
+      <td>{{ mod.version }}</td>
+      <td>{{ mod.installed|yesno:"Installed,Not Installed" }}</td>
+      <td>
+        {% if not mod.installed %}
+          <form method="post" action="{% url 'module_install' mod.id %}">{% csrf_token %}<button>Install</button></form>
+        {% else %}
+          <form method="post" action="{% url 'module_uninstall' mod.id %}">{% csrf_token %}<button>Uninstall</button></form>
+          <form method="post" action="{% url 'module_upgrade' mod.id %}">{% csrf_token %}<button>Upgrade</button></form>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
