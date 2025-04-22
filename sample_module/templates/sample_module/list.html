@@ -1,13 +1,42 @@
-<h1>Simple Module</h1>
-<table>
-  <tr><th>Name</th><th>Barcode</th><th>Price</th><th>Stock</th></tr>
-  {% for prduct in products %}
-    <tr>
-      <td>{{ prduct.name }}</td>
-      <td>{{ prduct.barcode }}</td>
-      <td>{{ prduct.price}}</td>
-      <td>{{ prduct.stock}}</td>
-      
-    </tr>
-  {% endfor %}
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Module</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0">Simple Module</h1>
+        <a href="/product/add" class="btn btn-primary">Tambah Produk</a>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Barcode</th>
+            <th>Price</th>
+            <th>Stock</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in products %}
+            <tr>
+              <td>{{ product.name }}</td>
+              <td>{{ product.barcode }}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.stock }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Optional Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

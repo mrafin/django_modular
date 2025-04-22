@@ -3,6 +3,7 @@ from .models import Product
 from .forms import ProductForm
 from django.contrib.auth.decorators import permission_required
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 @permission_required('sample_module.view_product', raise_exception=True)
 def product_list(request):
@@ -14,6 +15,7 @@ def product_list(request):
     # print("masukkkkkkkkkkkkkkkkk")
     return render(request, 'sample_module/list.html', {'products': products})
 
+# @login_required
 @permission_required('sample_module.add_product', raise_exception=True)
 def product_add(request):
     # print("masukkkkkkkkkkkkkkkkk111111111111")

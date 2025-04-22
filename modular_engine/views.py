@@ -7,11 +7,24 @@ from django.conf import settings
 from django.core import management
 from django.conf import settings
 
+app2url = {
+    "sample_module":"/product"
+}
+
 def module_list(request):
     modules = Module.objects.all()
     print("settings.INSTALLED_APPS")
-    print(settings.BASE_DIR)
-    return render(request, 'modular_engine/module_list.html', {'modules': modules})
+    modules_list = list(modules.values())
+    for module in modules_list:
+        module_name = module['name']
+        if module_name in app2url:
+            module['url'] = app2url[module_name]
+        else:
+            module['url'] = "/module"
+    
+    print(modules_list)
+
+    return render(request, 'modular_engine/module_list.html', {'modules': modules_list})
 
 def install_module(request, mod_id):
     mod = Module.objects.get(id=mod_id)
