@@ -2,6 +2,12 @@
 
 from django.db import migrations, models
 
+def add_initial_modules(apps, schema_editor):
+    # Ambil model yang sesuai
+    Module = apps.get_model('modular_engine', 'Module')
+
+    # Tambahkan data
+    Module.objects.create(name='sample_module', version='1.0.0', installed=False)
 
 class Migration(migrations.Migration):
 
@@ -20,4 +26,5 @@ class Migration(migrations.Migration):
                 ('installed', models.BooleanField(default=False)),
             ],
         ),
+        migrations.RunPython(add_initial_modules),
     ]

@@ -12,8 +12,9 @@ def product_list(request):
         return render(request, 'sample_module/not_installed.html')
      
     products = Product.objects.all()
+    field_names = [field.name for field in Product._meta.fields if field.name != "id"]
     # print("masukkkkkkkkkkkkkkkkk")
-    return render(request, 'sample_module/list.html', {'products': products})
+    return render(request, 'sample_module/list.html', {'products': products, "field_names":field_names})
 
 # @login_required
 @permission_required('sample_module.add_product', raise_exception=True)
